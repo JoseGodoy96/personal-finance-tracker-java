@@ -1,4 +1,6 @@
 package com.chema.db.smartexpensetracker.model;
 
-public class TransactionType {
+public enum TransactionType {
+    INCOME,
+    EXPENSE
 }
