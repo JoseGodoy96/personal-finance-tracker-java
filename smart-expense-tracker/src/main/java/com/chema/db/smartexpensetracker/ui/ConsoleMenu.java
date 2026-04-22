@@ -1,6 +1,9 @@
 package com.chema.db.smartexpensetracker.ui;
 
+import com.chema.db.smartexpensetracker.service.TransactionService;
+
 import java.util.Scanner;
+import com.chema.db.smartexpensetracker.service.TransactionService;
 
 public class ConsoleMenu {
 
@@ -8,6 +11,7 @@ public class ConsoleMenu {
 
         boolean run = true;
         Scanner sc = new Scanner(System.in);
+        TransactionService service;
 
         while (run) {
             System.out.println("=== MENU ===");
@@ -21,6 +25,9 @@ public class ConsoleMenu {
 
             switch (option) {
                 case 1:
+                    System.out.println("Por favor introduzca el valor");
+                    int value = sc.nextInt();
+
                     break ;
                 case 2:
                     break ;
