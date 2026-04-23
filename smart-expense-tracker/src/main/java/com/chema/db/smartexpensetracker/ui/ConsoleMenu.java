@@ -7,11 +7,16 @@ import com.chema.db.smartexpensetracker.service.TransactionService;
 
 public class ConsoleMenu {
 
+    private TransactionService service;
+
+    public ConsoleMenu(TransactionService service) {
+        this.service = service;
+    }
+
     public void start() {
 
         boolean run = true;
         Scanner sc = new Scanner(System.in);
-        TransactionService service;
 
         while (run) {
             System.out.println("=== MENU ===");
@@ -25,8 +30,22 @@ public class ConsoleMenu {
 
             switch (option) {
                 case 1:
-                    System.out.println("Por favor introduzca el valor");
-                    int value = sc.nextInt();
+                    double value;
+
+                    while (true) {
+                        System.out.println("Please enter the income value:");
+                        if (!sc.hasNextDouble()) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            sc.next();
+                            continue;
+                        }
+                        value = sc.nextDouble();
+                        if (value < 0) {
+                            System.out.println("Value must be 0 or greater.");
+                            continue;
+                        }
+                        break;
+                    }
 
                     break ;
                 case 2:
