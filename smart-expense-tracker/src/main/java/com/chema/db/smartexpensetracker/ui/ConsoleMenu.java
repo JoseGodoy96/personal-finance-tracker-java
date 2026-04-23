@@ -4,6 +4,7 @@ import com.chema.db.smartexpensetracker.service.TransactionService;
 
 import java.util.Scanner;
 import com.chema.db.smartexpensetracker.service.TransactionService;
+import com.chema.db.smartexpensetracker.model.Category;
 
 public class ConsoleMenu {
 
@@ -40,11 +41,28 @@ public class ConsoleMenu {
                             continue;
                         }
                         value = sc.nextDouble();
+                        sc.nextLine();
                         if (value < 0) {
                             System.out.println("Value must be 0 or greater.");
                             continue;
                         }
                         break;
+                    }
+
+                    Category category = null;
+                    for (Category c : Category.values()) {
+                        System.out.println("- " + c);
+                    }
+
+                    while (category == null) {
+                        System.out.println("Select a category from the list:");
+                        String input = sc.nextLine();
+
+                        try {
+                            category = Category.valueOf(input.toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid category. try again");
+                        }
                     }
 
                     break ;
