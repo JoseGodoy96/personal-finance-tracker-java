@@ -125,6 +125,7 @@ public class ConsoleMenu {
                     Transaction transaction = new Transaction(value, category, date, description, type);
                     service.addTransaction(transaction);
                     System.out.println("Income added successfully.");
+                    System.out.println("--------------------");
                     break ;
                 case 2:
                     double valueExpense;
@@ -202,19 +203,24 @@ public class ConsoleMenu {
                     Transaction transactionExpense = new Transaction(valueExpense, categoryExpense, dateExpense, descriptionExpense, typeExpense);
                     service.addTransaction(transactionExpense);
                     System.out.println("Expense added successfully.");
+                    System.out.println("--------------------");
                     break ;
                 case 3:
                     service.showAllTransactions();
+                    System.out.println("--------------------");
                     break ;
                 case 4:
                     double balance = service.getBalance();
-                    System.out.println("The actual balance is: " + balance);
+                    System.out.println("The actual balance is: " + balance + "€");
+                    System.out.println("--------------------");
                     break ;
                 case 5:
+                    System.out.println("Exiting program. Bye!");
                     run = false;
                     break ;
                 default:
                     System.out.println("Please enter a valid value");
+                    System.out.println("--------------------");
             }
         }
     }

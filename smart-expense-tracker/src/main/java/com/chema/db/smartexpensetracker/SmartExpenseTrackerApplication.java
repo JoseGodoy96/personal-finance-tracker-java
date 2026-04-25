@@ -1,13 +1,14 @@
 package com.chema.db.smartexpensetracker;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.chema.db.smartexpensetracker.service.TransactionService;
+import com.chema.db.smartexpensetracker.ui.ConsoleMenu;
 
-@SpringBootApplication
 public class SmartExpenseTrackerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SmartExpenseTrackerApplication.class, args);
-    }
 
+        TransactionService service = new TransactionService();
+        ConsoleMenu menu = new ConsoleMenu(service);
+        menu.start();
+    }
 }
