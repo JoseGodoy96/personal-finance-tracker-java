@@ -6,12 +6,12 @@ public class Transaction {
 
     private static int counter = 1;
 
-    private int id;
-    private double amount;
-    private Category category;
-    private LocalDate date;
-    private String description;
-    private TransactionType type;
+    private final int id;
+    private final double amount;
+    private final Category category;
+    private final LocalDate date;
+    private final String description;
+    private final TransactionType type;
 
     public Transaction(double amount, Category category, LocalDate date, String description, TransactionType type) {
         this.id = counter++;

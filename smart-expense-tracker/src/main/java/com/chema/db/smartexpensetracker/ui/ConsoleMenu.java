@@ -3,10 +3,7 @@ package com.chema.db.smartexpensetracker.ui;
 import com.chema.db.smartexpensetracker.model.Transaction;
 import com.chema.db.smartexpensetracker.model.TransactionType;
 import com.chema.db.smartexpensetracker.service.TransactionService;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Scanner;
-import com.chema.db.smartexpensetracker.service.TransactionService;
 import com.chema.db.smartexpensetracker.model.Category;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -15,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ConsoleMenu {
 
-    private TransactionService service;
+    private final TransactionService service;
 
     public ConsoleMenu(TransactionService service) {
         this.service = service;
@@ -34,9 +31,21 @@ public class ConsoleMenu {
             System.out.println("4. Show Balance");
             System.out.println("5. Exit");
 
-            int option = sc.nextInt();
+            int option;
 
-            ArrayList<Transaction> transactions = new ArrayList<>();
+            while (true) {
+                if (!sc.hasNextInt()) {
+                    System.out.println("Invalid option");
+                    sc.next();
+
+                    continue;
+                }
+                option = sc.nextInt();
+                sc.nextLine();
+
+                break;
+            }
+
 
             switch (option) {
                 case 1:
@@ -108,14 +117,13 @@ public class ConsoleMenu {
                             continue;
                         }
 
-
                         break;
                     }
 
                     TransactionType type = TransactionType.INCOME;
 
                     Transaction transaction = new Transaction(value, category, date, description, type);
-                    transactions.add(transaction);
+                    service.addTransaction(transaction);
                     System.out.println("Income added successfully.");
                     break ;
                 case 2:
@@ -186,19 +194,21 @@ public class ConsoleMenu {
                             continue;
                         }
 
-
                         break;
                     }
 
                     TransactionType typeExpense = TransactionType.EXPENSE;
 
                     Transaction transactionExpense = new Transaction(valueExpense, categoryExpense, dateExpense, descriptionExpense, typeExpense);
-                    transactions.add(transactionExpense);
+                    service.addTransaction(transactionExpense);
                     System.out.println("Expense added successfully.");
                     break ;
                 case 3:
+                    service.showAllTransactions();
                     break ;
                 case 4:
+                    double balance = service.getBalance();
+                    System.out.println("The actual balance is: " + balance);
                     break ;
                 case 5:
                     run = false;

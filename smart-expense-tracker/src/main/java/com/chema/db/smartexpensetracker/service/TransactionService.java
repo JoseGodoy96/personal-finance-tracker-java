@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class TransactionService {
 
-    private List<Transaction> transactions = new ArrayList<>();
+    private final List<Transaction> transactions = new ArrayList<>();
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
@@ -42,7 +42,7 @@ public class TransactionService {
     public void getMonthlySummary(int month, int year) {
         double income = 0;
         double spent = 0;
-        double balance = 0;
+        double balance;
 
         for (Transaction t : transactions) {
             if (t.getDate().getMonthValue() == month && t.getDate().getYear() == year) {
