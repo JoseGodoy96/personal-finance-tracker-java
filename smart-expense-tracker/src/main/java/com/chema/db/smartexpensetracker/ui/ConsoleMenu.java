@@ -1,7 +1,9 @@
 package com.chema.db.smartexpensetracker.ui;
 
+import com.chema.db.smartexpensetracker.model.TransactionType;
 import com.chema.db.smartexpensetracker.service.TransactionService;
 
+import java.lang.reflect.Type;
 import java.util.Scanner;
 import com.chema.db.smartexpensetracker.service.TransactionService;
 import com.chema.db.smartexpensetracker.model.Category;
@@ -83,6 +85,25 @@ public class ConsoleMenu {
                         } catch (DateTimeParseException e) {
                             System.out.println("Invalid format. please enter YYYY-MM-DD");
                         }
+                    }
+
+                    String description;
+
+                    while (true) {
+                        System.out.print("Please enter a description: ");
+                        description = sc.nextLine().trim();
+
+                        if (description.isEmpty()) {
+                            System.out.println("Description can't be empty");
+                            continue;
+                        }
+
+                        if (description.length() < 3) {
+                            System.out.println("must be at least 3 characters");
+                            continue;
+                        }
+                        
+                        break;
                     }
 
                     break ;
