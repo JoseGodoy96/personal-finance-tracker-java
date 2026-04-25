@@ -74,9 +74,13 @@ public class ConsoleMenu {
                     while (date == null) {
                         System.out.println("Please enter a date (YYYY-MM-DD): ");
                         String dateInput = sc.nextLine();
-
                         try {
-                            date = LocalDate.parse(dateInput, formatter);                        } catch (DateTimeParseException e) {
+                            date = LocalDate.parse(dateInput, formatter);
+                            if (date.isAfter(LocalDate.now())) {
+                                System.out.println("Date cannot be in the future");
+                                date = null;
+                            }
+                        } catch (DateTimeParseException e) {
                             System.out.println("Invalid format. please enter YYYY-MM-DD");
                         }
                     }
