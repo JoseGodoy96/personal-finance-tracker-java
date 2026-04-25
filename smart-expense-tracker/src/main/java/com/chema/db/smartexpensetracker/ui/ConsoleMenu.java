@@ -102,6 +102,8 @@ public class ConsoleMenu {
                             System.out.println("must be at least 3 characters");
                             continue;
                         }
+
+                        TransactionType type = TransactionType.INCOME;
                         
                         break;
                     }
