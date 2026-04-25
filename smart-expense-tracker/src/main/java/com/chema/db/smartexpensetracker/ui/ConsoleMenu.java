@@ -5,6 +5,9 @@ import com.chema.db.smartexpensetracker.service.TransactionService;
 import java.util.Scanner;
 import com.chema.db.smartexpensetracker.service.TransactionService;
 import com.chema.db.smartexpensetracker.model.Category;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 
 public class ConsoleMenu {
 
@@ -62,6 +65,19 @@ public class ConsoleMenu {
                             category = Category.valueOf(input.toUpperCase());
                         } catch (IllegalArgumentException e) {
                             System.out.println("Invalid category. try again");
+                        }
+                    }
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                    LocalDate date = null;
+                    while (date == null) {
+                        System.out.println("Please enter a date (YYYY-MM-DD): ");
+                        String dateInput = sc.nextLine();
+
+                        try {
+                            date = LocalDate.parse(dateInput, formatter);                        } catch (DateTimeParseException e) {
+                            System.out.println("Invalid format. please enter YYYY-MM-DD");
                         }
                     }
 
