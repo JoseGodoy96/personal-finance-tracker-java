@@ -51,19 +51,15 @@ public class ConsoleMenu {
                 case 1:
 
                     double value;
-
                     value = readValue(sc, "Please enter the income value:");
 
                     Category category;
-
                     category = readCategory(sc);
 
                     LocalDate date;
-
                     date = readDate(sc);
 
                     String description;
-
                     description = readDescription(sc);
 
                     TransactionType type = TransactionType.INCOME;
@@ -74,20 +70,17 @@ public class ConsoleMenu {
                     System.out.println("--------------------");
                     break ;
                 case 2:
-                    double valueExpense;
 
+                    double valueExpense;
                     valueExpense = readValue(sc, "Please enter the expense value:");
 
                     Category categoryExpense;
-
                     categoryExpense = readCategory(sc);
 
                     LocalDate dateExpense;
-
                     dateExpense = readDate(sc);
 
                     String descriptionExpense;
-
                     descriptionExpense = readDescription(sc);
 
                     TransactionType typeExpense = TransactionType.EXPENSE;
@@ -118,7 +111,6 @@ public class ConsoleMenu {
     }
 
     private double readValue(Scanner sc, String message) {
-
         double value;
 
         while (true) {
@@ -157,7 +149,6 @@ public class ConsoleMenu {
     }
 
     private LocalDate readDate(Scanner sc) {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         while (true) {
