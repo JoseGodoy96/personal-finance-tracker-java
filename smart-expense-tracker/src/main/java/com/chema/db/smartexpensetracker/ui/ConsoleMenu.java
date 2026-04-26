@@ -58,23 +58,9 @@ public class ConsoleMenu {
 
                     category = readCategory(sc);
 
-                    LocalDate date = null;
+                    LocalDate date;
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-                    while (date == null) {
-                        System.out.println("Please enter a date (YYYY-MM-DD): ");
-                        String dateInput = sc.nextLine();
-                        try {
-                            date = LocalDate.parse(dateInput, formatter);
-                            if (date.isAfter(LocalDate.now())) {
-                                System.out.println("Date cannot be in the future");
-                                date = null;
-                            }
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Invalid format. please enter YYYY-MM-DD");
-                        }
-                    }
+                    date = readDate(sc);
 
                     String description;
 
@@ -96,22 +82,9 @@ public class ConsoleMenu {
 
                     categoryExpense = readCategory(sc);
 
-                    DateTimeFormatter formatterExpense = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate dateExpense;
 
-                    LocalDate dateExpense = null;
-                    while (dateExpense == null) {
-                        System.out.println("Please enter a date (YYYY-MM-DD): ");
-                        String dateInput = sc.nextLine();
-                        try {
-                            dateExpense = LocalDate.parse(dateInput, formatterExpense);
-                            if (dateExpense.isAfter(LocalDate.now())) {
-                                System.out.println("Date cannot be in the future");
-                                dateExpense = null;
-                            }
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Invalid format. please enter YYYY-MM-DD");
-                        }
-                    }
+                    dateExpense = readDate(sc);
 
                     String descriptionExpense;
 
@@ -184,19 +157,19 @@ public class ConsoleMenu {
     }
 
     private LocalDate readDate(Scanner sc) {
-        LocalDate date = null;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        while (date == null) {
+        while (true) {
             System.out.println("Please enter a date (YYYY-MM-DD): ");
             String dateInput = sc.nextLine();
             try {
-                return LocalDate.parse(dateInput, formatter);
+                LocalDate date = LocalDate.parse(dateInput, formatter);
                 if (date.isAfter(LocalDate.now())) {
                     System.out.println("Date cannot be in the future");
-                    date = null;
+                    continue ;
                 }
+                return date;
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid format. please enter YYYY-MM-DD");
             }
