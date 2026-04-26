@@ -49,26 +49,15 @@ public class ConsoleMenu {
 
             switch (option) {
                 case 1:
+
                     double value;
 
-                    while (true) {
-                        System.out.println("Please enter the income value:");
-                        if (!sc.hasNextDouble()) {
-                            System.out.println("Invalid input. Please enter a number.");
-                            sc.next();
+                    value = readValue(sc, "Please enter the income value:");
 
-                            continue;
-                        }
-                        value = sc.nextDouble();
-                        sc.nextLine();
-                        if (value < 0) {
-                            System.out.println("Value must be 0 or greater.");
-                            continue;
-                        }
-                        break;
-                    }
+                    Category category;
 
-                    Category category = null;
+                    category = readCategory(sc);
+
                     for (Category c : Category.values()) {
                         System.out.println("- " + c);
                     }
@@ -224,4 +213,52 @@ public class ConsoleMenu {
             }
         }
     }
+
+    private double readValue(Scanner sc, String message) {
+
+        double value;
+
+        while (true) {
+            System.out.println("Please enter the income value:");
+            if (!sc.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a number.");
+                sc.next();
+
+                continue;
+            }
+            value = sc.nextDouble();
+            sc.nextLine();
+            if (value < 0) {
+                System.out.println("Value must be 0 or greater.");
+                continue;
+            }
+            return value;
+        }
+    }
+
+    private Category readCategory(Scanner sc) {
+        for (Category c : Category.values()) {
+            System.out.println("- " + c);
+        }
+
+        while (category == null) {
+            System.out.println("Select a category from the list:");
+            String input = sc.nextLine();
+
+            try {
+                return Category.valueOf(input.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid category. try again");
+            }
+        }
+    }
+
+    private LocalDate readDate(Scanner sc) {
+
+    }
+
+    private String readDescription(Scanner sc) {
+
+    }
+
 }
