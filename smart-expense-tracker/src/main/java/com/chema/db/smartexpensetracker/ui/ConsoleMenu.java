@@ -58,24 +58,10 @@ public class ConsoleMenu {
 
                     category = readCategory(sc);
 
-                    for (Category c : Category.values()) {
-                        System.out.println("- " + c);
-                    }
-
-                    while (category == null) {
-                        System.out.println("Select a category from the list:");
-                        String input = sc.nextLine();
-
-                        try {
-                            category = Category.valueOf(input.toUpperCase());
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid category. try again");
-                        }
-                    }
+                    LocalDate date = null;
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-                    LocalDate date = null;
                     while (date == null) {
                         System.out.println("Please enter a date (YYYY-MM-DD): ");
                         String dateInput = sc.nextLine();
@@ -92,22 +78,7 @@ public class ConsoleMenu {
 
                     String description;
 
-                    while (true) {
-                        System.out.print("Please enter a description: ");
-                        description = sc.nextLine().trim();
-
-                        if (description.isEmpty()) {
-                            System.out.println("Description can't be empty");
-                            continue;
-                        }
-
-                        if (description.length() < 3) {
-                            System.out.println("must be at least 3 characters");
-                            continue;
-                        }
-
-                        break;
-                    }
+                    description = readDescription(sc);
 
                     TransactionType type = TransactionType.INCOME;
 
@@ -119,37 +90,11 @@ public class ConsoleMenu {
                 case 2:
                     double valueExpense;
 
-                    while (true) {
-                        System.out.println("Please enter the expense value:");
-                        if (!sc.hasNextDouble()) {
-                            System.out.println("Invalid input. Please enter a number.");
-                            sc.next();
-                            continue;
-                        }
-                        valueExpense = sc.nextDouble();
-                        sc.nextLine();
-                        if (valueExpense < 0) {
-                            System.out.println("Value must be 0 or greater.");
-                            continue;
-                        }
-                        break;
-                    }
+                    valueExpense = readValue(sc, "Please enter the expense value:");
 
-                    Category categoryExpense = null;
-                    for (Category c : Category.values()) {
-                        System.out.println("- " + c);
-                    }
+                    Category categoryExpense;
 
-                    while (categoryExpense == null) {
-                        System.out.println("Select a category from the list:");
-                        String input = sc.nextLine();
-
-                        try {
-                            categoryExpense = Category.valueOf(input.toUpperCase());
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid category. try again");
-                        }
-                    }
+                    categoryExpense = readCategory(sc);
 
                     DateTimeFormatter formatterExpense = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -170,22 +115,7 @@ public class ConsoleMenu {
 
                     String descriptionExpense;
 
-                    while (true) {
-                        System.out.print("Please enter a description: ");
-                        descriptionExpense = sc.nextLine().trim();
-
-                        if (descriptionExpense.isEmpty()) {
-                            System.out.println("Description can't be empty");
-                            continue;
-                        }
-
-                        if (descriptionExpense.length() < 3) {
-                            System.out.println("must be at least 3 characters");
-                            continue;
-                        }
-
-                        break;
-                    }
+                    descriptionExpense = readDescription(sc);
 
                     TransactionType typeExpense = TransactionType.EXPENSE;
 
@@ -219,7 +149,7 @@ public class ConsoleMenu {
         double value;
 
         while (true) {
-            System.out.println("Please enter the income value:");
+            System.out.println(message);
             if (!sc.hasNextDouble()) {
                 System.out.println("Invalid input. Please enter a number.");
                 sc.next();
@@ -241,7 +171,7 @@ public class ConsoleMenu {
             System.out.println("- " + c);
         }
 
-        while (category == null) {
+        while (true) {
             System.out.println("Select a category from the list:");
             String input = sc.nextLine();
 
@@ -254,11 +184,44 @@ public class ConsoleMenu {
     }
 
     private LocalDate readDate(Scanner sc) {
+        LocalDate date = null;
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        while (date == null) {
+            System.out.println("Please enter a date (YYYY-MM-DD): ");
+            String dateInput = sc.nextLine();
+            try {
+                return LocalDate.parse(dateInput, formatter);
+                if (date.isAfter(LocalDate.now())) {
+                    System.out.println("Date cannot be in the future");
+                    date = null;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid format. please enter YYYY-MM-DD");
+            }
+        }
     }
 
     private String readDescription(Scanner sc) {
+        String description;
 
+        while (true) {
+            System.out.print("Please enter a description: ");
+            description = sc.nextLine().trim();
+
+            if (description.isEmpty()) {
+                System.out.println("Description can't be empty");
+                continue;
+            }
+
+            if (description.length() < 3) {
+                System.out.println("must be at least 3 characters");
+                continue;
+            }
+
+            return description;
+        }
     }
 
 }
